@@ -1,0 +1,74 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+<style>
+    .card{
+        margin-left: 37%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+
+    }
+
+    .card:hover{
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+    }
+
+    .card .card-img-top{
+        width: 100%;
+        height: 200px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .card .card-body{
+        padding: 0;
+    }
+    .card .card-body .card-title{
+        padding: 10px;
+        margin: 0;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+    }
+    .card .card-body .card-text{
+        padding: 0;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+    }
+    .card-body .card-link{
+        margin-top: 60px;
+    }
+
+</style>
+<br />
+
+{% comment %} Card of product {% endcomment %}
+
+<div class="card" style="width: 18rem;">
+  <img width='200' height='200' src="{{product.image.url}}" class="card-img-top" alt="AHNAI">
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Name: <strong>{{ product.name }}</strong></li>
+    <li class="list-group-item">Note: {{ product.description }}</li>
+    <li class="list-group-item">Price: ${{ product.price }}</li>
+    
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'update_product' product.id %}" class="card-link">Edit</a>
+    <a href="{% url 'delete_product' product.id %}" class="card-link">Delete</a>
+    <a style="color: red; font-size: 17px;" href="{% url 'products' %}" class="card-link">Back</a>
+  </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+

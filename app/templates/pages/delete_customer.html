@@ -1,0 +1,27 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+
+			<p>Risk, Are you sure to delete this customer?</p>
+			<p>This customer will still be available in the archive(database).</p>	
+			<p class="text-danger">This action cannot be undone.</p>
+
+
+			<form action="" method="POST">
+				
+				{% csrf_token %}
+				<a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+
+				<input class="btn btn-danger" type="submit" value="Confirm">
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

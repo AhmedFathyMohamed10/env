@@ -1,0 +1,59 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+   
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-20">
+            <div style="margin-left: -250px;" class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Add The Product <span style="float: right; font-size: 19px; color: red;">For images, you can update product after adding it and set its image..</span></h3>
+                    
+                </div>
+                <div class="card-body">
+                
+                    <table class="table table-bordered">
+                    <form action="{% url 'add_product' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Tags</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.name }}</td>
+                                <td>{{ form.price }}</td>
+                                <td>{{ form.quantity }}</td>
+                                <td>{{ form.description }}</td>
+                                <td>{{ form.category }}</td>
+                                <td>{{ form.tags }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                     <input type="submit" value="Add Product" class="btn btn-primary">
+                                    <a href="{% url 'products' %}" class="btn btn-primary">Back</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,124 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+	<br>
+
+	<style>
+		.image_profile{
+			width: 50%;
+			height: 50%;
+			margin-left: 40%;
+			border: 2px solid #fff;
+			box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+		}
+
+		img{
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			margin-left: 30%;
+			margin-top: -40%;
+			border: 2px solid #fff;
+			box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+
+
+		}
+
+	</style>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 style="color: black; " >Contact Information</h5>
+			<hr>
+			<p>Name: {{customer}}</p>
+			<p>Email: {{customer.email}}</p>
+			<p>Phone: {{customer.phone}}</p>
+            <p>Address: {{customer.address}}</p>
+			<div class="image_profile">
+				<img src="{{customer.profile_pic.url}}" alt="profile" width="100" height="100">
+			</div>
+		</div>
+		<hr>
+			<a style="background-color: gray;" class="btn btn-outline  btn-sm btn-block" href="{% url 'create_order' customer.id %}"><strong>Place Order</strong></a>
+		
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 style="color: black; ">Total Orders</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{order_count}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="GET">
+				{{myFilter.form.product.label}}
+				{{myFilter.form.product}}
+				{{myFilter.form.status.label}}
+				{{myFilter.form.status}}
+
+		    <button style="margin-left: 14px;" class="btn btn-success" type="submit">Filter</button>
+		  </form>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Description</th>
+					<th>Price</th>
+					<th>Status</th>
+					<th>Category</th>
+					<th>Date Orderd</th>	
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+				{% for order in orders %}
+				<tr>
+					<td>{{order.product}}</td>
+					<td>{{order.product.description}}</td>
+					<td>${{order.product.price}}</td>
+					<td>{{order.status}}</td>
+					<td>{{order.product.category}}</td>
+					<td>{{order.date_created}}</td>
+					<td><a class="btn btn-outline-primary btn-sm" href="{% url 'update_order' order.id %}">Update</a></td>
+					<td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete_order' order.id %}">Cancel Order</a></td>
+				</tr>
+
+				{% endfor %}
+
+			</table>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card card-body">
+					<a class="btn btn-outline-primary" href="{% url 'home' %}">Dashboard</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	h5{
+		color: black;
+		font-size: 20px;
+		font-weight: 600;
+		margin-bottom: 10px;
+	}
+</style>
+
+{% endblock %}

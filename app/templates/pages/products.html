@@ -1,0 +1,83 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<style>
+
+table td{
+  font-size: 23px;
+  padding: 5px;
+  margin: 5px;
+}
+
+
+</style>
+
+<br />
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-5">
+          <h1 style="text-align: center; color: white; font-size: 23px;">Search for product</h1>
+          <form action="{% url 'search' %}" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                  <input type="text" name="query" class="form-control" placeholder="Search">
+              </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+          </form>
+      </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md">
+    <div class="card card-body">
+      <h4>Store of Products</h4>
+      <br>
+      <h3 style="text-align: center;">Add a product here..</h3>
+      <br>
+      <a style="width: 50%; margin-left: 25%" href="{% url 'add_product' %}" class="btn btn-primary">Add Product</a>
+    </div> 
+    <br>
+    <div class="card card-body">
+      <table class="table">
+        <tr>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Image</th>
+        </tr>
+
+        {% for i in all_products %}
+        <tr>
+        {% comment %} {% url 'product' i.id %} {% endcomment %}
+          <td><a href="{% url 'product' i.id %}">{{ i.name }}</a></td>
+          <td>{{i.category}}</td>
+          <td>{{i.quantity}}</td>
+          <td>${{i.price}}</td>
+          <td>{{i.description}}</td>
+          <td><img src="{{i.image.url}}" width="100px" height="100px"></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  h4{
+    color: black;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    
+  }
+</style>
+
+{% endblock content %}
+

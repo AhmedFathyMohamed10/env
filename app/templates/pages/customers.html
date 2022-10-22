@@ -1,0 +1,94 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+table{
+    border-collapse: collapse;
+    background-color: #fff;
+    width: 100%;
+    color: #d96459;
+    font-family: monospace;
+    font-size: 25px;
+    text-align: left;
+}
+
+table thead{
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+table tbody tr td{
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    padding: 10px;
+    color: #555;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+</style>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 style="color: #d96459; font-family: 'Roboto', sans-serif; font-size: 20px; font-weight: bold; margin-left: 20%;">Search for a customer..</h3>
+    </div>
+</div>
+<br>
+
+<!--Search form for customer by name and id-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form action="{% url 'search-customer' %}" method="POST">
+            {% csrf_token %}
+                <div class="input-group">
+                    <input type="search" name="search" class="form-control" placeholder="Search by name or id" id="q_customer">
+                    <span class="input-group-prepend">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--Table for all customers in my database-->
+<div class="container">
+    <h2 style="color: white; text-align: center;">Customers</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td><a href="{% url 'customer' customer.id %}">{{ customer.name }}</a></td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.phone }}</td>
+                <td><a href="mailto:{{ customer.email }}">{{ customer.email }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="" class="btn btn-primary">Add Customer</a>
+    <a style="margin: 25px;" href="{% url 'home' %}" class="btn btn-danger">Home</a>
+</div>
+    
+    {% endblock %}

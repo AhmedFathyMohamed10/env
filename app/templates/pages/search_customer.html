@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+<title>{% block title %}Customer Search..{% endblock %}</title>
+
+
+{% block content %}
+    
+    {% if searched == '' %}
+        <h3 style="text-align: center; color: white;"> Please enter a search term. We found nothing to search!
+            <button style="background-color: white; border: 0px solid white; border-radius: 7px; margin-top: 10px;">
+                <a style="font-size: 20px; padding: 12px; color: black; text-align: center;" href="{% url 'products' %}">Go back</a>
+            </button>
+        </h3>
+        
+    {% else %}
+        {% if customers %}  <!-- if results are not empty -->
+        <div style="text-align: center; color: white; font-size: 23px; margin-top: 5%;">
+            <h3>We found for your search about {{ counting }} results</h3>
+        </div>
+        <br />
+        <div style="
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            width: 50%;
+            margin-left: 25%;
+            margin-top: 2%;
+        ">
+            <table class="table">
+              <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Photo</th>
+              </tr>
+      
+              {% for i in customers %}
+              <tr>
+                <td>{{ i.id }}</td>
+                <td><a href="{% url 'customer' i.id %}">{{ i.name }}</a></td>
+                <td>{{ i.phone }}</td>
+                <td>{{ i.address }}</td>
+                <td><img src="{{ i.photo.url }}" style="width: 50px; height: 50px; border-radius: 50%;"></td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+                <button style="margin-left: 45%; background-color: white; border: 0px solid white; border-radius: 7px; margin-top: 10px;">
+                    <a style="font-size: 20px; padding: 12px; color: black; text-align: center;" href="{% url 'customers' %}">Go back</a>
+                </button>
+        
+        
+            {% else %}
+                <h3 style="text-align: center; color: white;">No customers found.
+                    <button style="background-color: white; border: 0px solid white; border-radius: 7px; margin-top: 14px;">
+                    <a style="font-size: 20px; padding: 12px; color: black; text-align: center;" href="{% url 'customers' %}">Go back</a></button>
+                </h3>
+            {% endif %}
+
+    {% endif %}
+
+
+{% endblock %}
+
